@@ -43,4 +43,22 @@ public class EmployeeService {
         Employee employee = employeeMapper.selectByPrimaryKey(id);
         return employee;
     }
+
+
+    /**
+     * 员工更新
+     * @param employee
+     */
+    public void updateEmp(Employee employee) {
+
+         employeeMapper.updateByPrimaryKeySelective(employee);
+    }
+
+    /**
+     * 员工删除
+     * @param id
+     */
+    public void deleteEmp(Integer id) {
+        employeeMapper.deleteByPrimaryKey(id);
+    }
 }

@@ -32,7 +32,30 @@ public class EmployeeCotroller {
     EmployeeService employeeService;
 
     /**
-     *
+     * 删除员工信息
+     * @param employee
+     * @return
+     */
+    @RequestMapping(value = "/emp/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public Msg DeleteEmp(@PathVariable("id") Integer id){
+        employeeService.deleteEmp(id);
+        return Msg.success();
+    }
+
+    /**
+     * 更新员工
+     * @param employee
+     * @return
+     */
+    @RequestMapping(value = "/emp/{empId}",method = RequestMethod.PUT)
+    @ResponseBody
+    public Msg updateEmp(Employee employee){
+        employeeService.updateEmp(employee);
+        return Msg.success();
+    }
+    /**
+     *  根据id查询用户
      * @param id
      * @return
      */

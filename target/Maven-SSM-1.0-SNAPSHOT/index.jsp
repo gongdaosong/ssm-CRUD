@@ -1,6 +1,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>Index</title>
@@ -133,7 +134,7 @@
     </div>
     <!--按钮 -->
     <div class="row">
-        <div class="col-md-4 col-md-offset-8">
+        <div class="col-md-4 col-md-offset-10">
             <button class="btn btn-primary" id="emp_and_modal_btn">新增</button>
             <button class="btn btn-danger">删除</button>
         </div>
@@ -144,6 +145,9 @@
             <table class="table table-hover" id="emps_table">
                 <thead>
                 <tr>
+                    <th>
+                        <input type="checkbox" id="check_all">
+                    </th>
                     <th>#</th>
                     <th>empName</th>
                     <th>gender</th>
@@ -172,7 +176,7 @@
 </div>
 <script type="text/javascript">
 
-    var totalRecord;
+    var totalRecord,cuurentPage;
     // 页面加载以后直接发送ajax请求，要到分页数据
 
     $(function () {
@@ -204,18 +208,26 @@
         var emps = result.extend.pageinfo.list;
         $.each(emps, function (index, item) {
 
+            var checkBoxTd = $("<td><input type='checkbox' class='check_item'/></td>");
             var empIdTd = $("<td></td>").append(item.empId);
             var empNameTd = $("<td></td>").append(item.empName);
             var genderTd = $("<td></td>").append(item.gender == 'M'?"男":"女");
             var emailTd = $("<td></td>").append(item.email);
             var deptNameTd = $("<td></td>").append(item.department.deptName);
 
-            var editBtn = $("<button></button>").addClass("btn btn-primary btn-sm edit_btn")
-                .append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append("编辑");
+            var editBtn = $("<button></button>").addClass("btn btn-info btn-sm edit_btn")
+                .append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append(" ").append("编辑");
+            // 添加自定义属性
+
+            editBtn.attr("edit-id",item.empId);
             var delBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
-                .append($("<span></span>").addClass("glyphicon glyphicon-trash")).append("删除");
+                .append($("<span></span>").addClass("glyphicon glyphicon-trash")).append(" ").append("删除");
+            // 添加自定义属性
+            delBtn.attr("del-id",item.empId);
+
             var btnTd = $("<td></td>").append(editBtn).append(" ").append(delBtn);
-            $("<tr></tr>").append(empIdTd)
+            $("<tr></tr>").append(checkBoxTd)
+                .append(empIdTd)
                 .append(empNameTd)
                 .append(genderTd)
                 .append(emailTd)
@@ -233,6 +245,7 @@
             result.extend.pageinfo.pages+"页，总共"+
             result.extend.pageinfo.total+"条记录");
         totalRecord = result.extend.pageinfo.total;
+        cuurentPage = result.extend.pageinfo.pageNum;
     }
     // 解析显示分页条信息
     function build_page_nav(result) {
@@ -413,7 +426,7 @@
             success:function (result) {
                 // 还需要判断
                 if(result.code == 100){
-                // 关闭，模态框
+                // 关闭模态框
                 $("#empAndmodal").modal("hide");
                 // 来到最后一页，显示保存数据
                 to_page(totalRecord);
@@ -438,22 +451,93 @@
     // 获取员工信息
     function getEmp(id){
         $.ajax({
-            url:"${APP_PATH}/emp/{id}"+id,
+            url:"${APP_PATH}/emp/"+id,
             type:"GET",
-
+            success:function (result) {
+              //  console.log(result);
+                var empData = result.extend.emp;
+                $("#empName_update_static").text(empData.empName);
+                $("#email_update_input").val(empData.email);
+                $("#empupdatemodal input[name=gender]").val([empData.gender]);
+                $("#dept_update_select").val([empData.dId]);
+            }
         });
     }
+
+    // 点击更新按钮，更新员工
+    $("#emp_update_btn").click(function () {
+
+        // 验证邮箱，校验邮箱是否合法
+        var email = $("#email_update_input").val();
+        var reqemail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if(!reqemail.test(email)){
+            show_validata_msg("#email_update_input","error","邮箱格式错误");
+            return false;
+        } else{
+            show_validata_msg("#email_update_input","success"," ");
+        }
+        // 发送ajax请求更新保存员工数据
+        $.ajax({
+            url:"${APP_PATH}/emp/"+$(this).attr("edit-id"),
+            type:"PUT",
+            data:$("#empupdatemodal form").serialize(),
+            success:function (result) {
+              //  alert(result.msg);
+              //关闭模态框
+                $("#empupdatemodal").modal("hide");
+              //跳转到修改页面并保存数据
+                to_page(cuurentPage);
+            }
+        });
+    });
     // 给编辑按钮添加绑定事件
     $(document).on("click",".edit_btn",function () {
 
-        // 发送ajax请求，查出部门信息，显示在下拉列表中
+        //1， 发送ajax请求，查出部门信息，显示在下拉列表中
         getDepts("#dept_update_select");
-       // 点击编辑按钮，弹出模态框
+        //2， 查出员工信息，显示员工信息
+        getEmp($(this).attr("edit-id"));
+        // 3，把员工id传给模态框的更新按钮
+        $("#emp_update_btn").attr("edit-id",$(this).attr("edit-id"));
+       //4，点击编辑按钮，弹出模态框
         $("#empupdatemodal").modal({
             backdrop:"static"
         });
     });
 
+    // 给删除按钮绑定事件
+    $(document).on("click",".delete_btn",function () {
+        //弹出确认删除对话框
+        var empName = $(this).parents("tr").find("td:eq(2)").text();
+        var empId = $(this).attr("del-id");
+    //    alert($(this).parents("tr").find("td:eq(2)").text());
+        if(confirm("确认删除【"+empName+"】吗?")){
+            // 确认，发送ajax请求删除即可
+            $.ajax({
+                url:"${APP_PATH}/emp/"+empId,
+                type:"DELETE",
+                success:function (result) {
+                    alert(result.msg);
+                    //跳转到本页面并保存数据
+                    to_page(cuurentPage);
+                }
+            });
+
+        }
+    });
+
+    // 完成全选/全不选功能
+    $("#check_all").click(function () {
+    //   alert($(this).prop("checked"));
+       $(".check_item").prop("checked",$(this).prop("checked"));
+    });
+    // 为check_item复选框添加绑定事件
+    $(document).on("click",".check_item",function () {
+        //判断当前选中的元素是否5个
+       // alert($(".check_item:checked").length);
+        var flag = $(".check_item:checked").length == $(".check_item").length;
+        $("#check_all").prop("checked",flag);
+    });
 </script>
 </body>
 </html>

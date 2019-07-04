@@ -79,7 +79,7 @@ public class Employee {
         this.dId = dId;
     }
 
-    /*@Override
+    @Override
     public String toString() {
         return "Employee{" +
                 "empId=" + empId +
@@ -88,5 +88,5 @@ public class Employee {
                 ", email='" + email + '\'' +
                 ", dId=" + dId +
                 '}';
-    }*/
+    }
 }
