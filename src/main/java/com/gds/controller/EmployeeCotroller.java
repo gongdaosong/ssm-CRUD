@@ -12,7 +12,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.*;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,13 +35,29 @@ public class EmployeeCotroller {
 
     /**
      * 删除员工信息
+     * 单个删除
+     * 批量删除
      * @param employee
      * @return
      */
-    @RequestMapping(value = "/emp/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/emp/{ids}", method = RequestMethod.DELETE)
     @ResponseBody
-    public Msg DeleteEmp(@PathVariable("id") Integer id){
+    public Msg DeleteEmp(@PathVariable("ids") String ids){
+
+        // 批量删除
+        if(ids.contains("-")){
+            List<Integer> del_ids = new ArrayList<Integer>();
+            String[] str_ids = ids.split("-");
+            // 组装id的集合
+            for (String string : str_ids) {
+                del_ids.add(Integer.parseInt(string));
+            }
+            employeeService.deleteBatch(del_ids);
+        }else {
+        Integer id = Integer.parseInt(ids);
         employeeService.deleteEmp(id);
+
+        }
         return Msg.success();
     }
 
@@ -137,7 +155,6 @@ public class EmployeeCotroller {
         // f分装了分页信息，包括查询的数据，传入连续显示的页数
         PageInfo pageInfo = new PageInfo(emps,5);
         model.addAttribute("pageinfo",pageInfo);
-
         return "list";
     }
 }

@@ -136,7 +136,7 @@
     <div class="row">
         <div class="col-md-4 col-md-offset-10">
             <button class="btn btn-primary" id="emp_and_modal_btn">新增</button>
-            <button class="btn btn-danger">删除</button>
+            <button class="btn btn-danger" id="emp_delete_all_btn">删除</button>
         </div>
     </div>
     <!--表格 -->
@@ -537,6 +537,30 @@
        // alert($(".check_item:checked").length);
         var flag = $(".check_item:checked").length == $(".check_item").length;
         $("#check_all").prop("checked",flag);
+    });
+    // 为全部删除按钮绑定点击事件(批量删除)
+    $("#emp_delete_all_btn").click(function () {
+        var empNames = "";
+        var del_idstr = "";
+        //
+        $.each($(".check_item:checked"),function () {
+        empNames +=$(this).parents("tr").find("td:eq(2)").text()+",";
+        del_idstr +=$(this).parents("tr").find("td:eq(1)").text()+"-";
+        });
+        empNames = empNames.substring(0,empNames.length-1);
+        del_idstr = del_idstr.substring(0,del_idstr.length-1);
+        if(confirm("确认删除【"+empNames+"】吗？")){
+            // 确认删除，发送ajax请求删除即可
+            $.ajax({
+                url:"${APP_PATH}/emp/"+del_idstr,
+                type:"DELETE",
+                success:function (result) {
+                    alert(result.msg);
+                    to_page(cuurentPage);
+                }
+            });
+
+        }
     });
 </script>
 </body>
