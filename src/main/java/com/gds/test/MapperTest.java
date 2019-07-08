@@ -74,11 +74,11 @@ public class MapperTest {
             employeeMapper.insert(new Employee(null,"M","123456@qq.com",2));
         }*/
         // 批量插入多个员工，使用可以实现批量操作的sqlsession
-       /* EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+        EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
         for (int i = 0; i<1000; i++){
             String uid = UUID.randomUUID().toString().substring(0, 5)+i;
-            mapper.insertSelective(new Employee(null,uid,"M",uid+"@qq.com",3));
-        }*/
+            mapper.insertSelective(new Employee(null,uid,"F",uid+"@qq.com",2));
+        }
 
     }
 }

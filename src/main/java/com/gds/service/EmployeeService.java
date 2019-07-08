@@ -15,17 +15,29 @@ public class EmployeeService {
     @Autowired
     EmployeeMapper employeeMapper;
 
-    // 查询所有员工
+    /**
+     * 查询所有员工
+     *
+     * @return
+     */
     public List<Employee> getAll(){
 
         return employeeMapper.selectByExampleWithDept(null);
     }
 
+    /**
+     * 保存员工
+     * @param employee
+     */
     public void saveEmp(Employee employee) {
         employeeMapper.insertSelective(employee);
     }
 
-    // 检查用户名是否可用
+    /**
+     * 检查用户名是否可用
+     * @param empName
+     * @return
+     */
     public boolean checkUser(String empName) {
         EmployeeExample example = new EmployeeExample();
         EmployeeExample.Criteria criteria = example.createCriteria();
