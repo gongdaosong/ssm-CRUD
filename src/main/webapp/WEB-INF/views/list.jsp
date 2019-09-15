@@ -30,7 +30,7 @@
                     <button class="btn btn-danger">删除</button>
                 </div>
             </div>
-            <!--表格 -->
+            <!--显示表格 -->
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-hover">
@@ -65,9 +65,9 @@
                     </table>
                 </div>
             </div>
-            <!--分页 -->
+            <!--显示分页信息 -->
             <div class="row">
-                <!-- 分页信息-->
+                <!-- 分页文字信息-->
                 <div class="col-md-6">
                     当前第${pageinfo.pageNum}页,总共${pageinfo.pages}页，总共${pageinfo.total}条记录
                 </div>
@@ -84,7 +84,7 @@
                             </li>
                             </c:if>
 
-                                <c:forEach items="${pageinfo.navigatepageNums}" var="page_Num">
+                            <c:forEach items="${pageinfo.navigatepageNums}" var="page_Num">
                                 <c:if test="${page_Num == pageinfo.pageNum}">
                                     <li class="active"><a href="#">${page_Num}</a></li>
                                 </c:if>
@@ -93,7 +93,6 @@
                                 </c:if>
                             </c:forEach>
                             <c:if test="${pageinfo.hasNextPage}">
-
                             <li>
                                 <a href="${APP_PATH}/emps?pn=${pageinfo.pageNum+1}" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>

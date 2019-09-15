@@ -41,9 +41,9 @@ public class MapperTest {
     DepartmentMapper departmentMapper;
     @Test
     public void testCrud() {
-        System.out.println(departmentMapper);
+        //System.out.println(departmentMapper);
         List<Employee> employees = employeeMapper.selectByExample(null);
-        System.out.println(employees);
+        //System.out.println(employees);
         // 插入部门
        /* departmentMapper.insert(new Department(null, "开发部"));
         departmentMapper.insert(new Department(null, "测试部"));*/
@@ -79,6 +79,7 @@ public class MapperTest {
             String uid = UUID.randomUUID().toString().substring(0, 5)+i;
             mapper.insertSelective(new Employee(null,uid,"F",uid+"@qq.com",2));
         }
+        System.out.println("批量生成完成!");
 
     }
 }

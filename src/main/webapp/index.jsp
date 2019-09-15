@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Index</title>
+    <title>主页</title>
     <%
         pageContext.setAttribute("APP_PATH",request.getContextPath());
     %>

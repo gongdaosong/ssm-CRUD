@@ -147,7 +147,7 @@ public class EmployeeCotroller {
         return Msg.success().add("pageinfo",page);
     }
 
-    //@RequestMapping("/emps")
+//    @RequestMapping("/emps")
     public String getEmps(@RequestParam(value = "pn",defaultValue = "1") Integer pn, Model model){
 
         //引入分页插件pagehelper，传入页码，以及每页显示数据
