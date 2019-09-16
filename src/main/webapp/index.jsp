@@ -138,7 +138,7 @@
             <button class="btn btn-danger" id="emp_delete_all_btn">删除</button>
         </div>
     </div>
-    <!--表格 -->
+    <!--显示表格数据 -->
     <div class="row">
         <div class="col-md-12">
             <table class="table table-hover" id="emps_table">
@@ -206,7 +206,7 @@
 
         var emps = result.extend.pageinfo.list;
         $.each(emps, function (index, item) {
-
+            // alert(item.empName);
             var checkBoxTd = $("<td><input type='checkbox' class='check_item'/></td>");
             var empIdTd = $("<td></td>").append(item.empId);
             var empNameTd = $("<td></td>").append(item.empName);

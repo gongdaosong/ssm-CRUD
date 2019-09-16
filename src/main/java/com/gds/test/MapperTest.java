@@ -77,7 +77,7 @@ public class MapperTest {
         EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
         for (int i = 0; i<1000; i++){
             String uid = UUID.randomUUID().toString().substring(0, 5)+i;
-            mapper.insertSelective(new Employee(null,uid,"F",uid+"@qq.com",2));
+            mapper.insertSelective(new Employee(null,uid,"F",uid+"@qq.com",7));
         }
         System.out.println("批量生成完成!");
 
