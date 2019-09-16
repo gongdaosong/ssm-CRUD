@@ -30,7 +30,7 @@
     </bean>
     <!--配置mybatis整合-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <!--mybatis全局配置-->
+        <!--mybatis全局配置-->  <!--映射日志xml文件 -->
         <property name="configLocation" value="classpath:mybatis-config.xml"></property>
         <!--指定数据源-->
         <property name="dataSource" ref="dataSource"></property>

@@ -71,6 +71,12 @@
       <scope>provided</scope>
     </dependency>
 
+    <!-- log4j记录日志-->
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.16</version>
+    </dependency>
     <!--juit-->
     <dependency>
       <groupId>junit</groupId>

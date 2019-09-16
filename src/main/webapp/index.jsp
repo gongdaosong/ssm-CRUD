@@ -11,8 +11,7 @@
     <!--引入jquery-->
     <script type="text/javascript" src="${APP_PATH}/static/jQuery/jquery-1.11.3min.js"></script>
     <!--引入样式-->
-    <link href="${APP_PATH}/static/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="${APP_PATH}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="${APP_PATH}/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="${APP_PATH}/static/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>

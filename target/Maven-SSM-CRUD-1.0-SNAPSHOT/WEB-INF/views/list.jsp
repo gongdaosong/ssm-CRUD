@@ -10,8 +10,7 @@
     <!--引入jquery-->
     <script type="text/javascript" src="${APP_PATH}/static/jQuery/jquery-1.11.3min.js"></script>
     <!--引入样式-->
-    <link href="${APP_PATH}/static/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="${APP_PATH}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="${APP_PATH}/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="${APP_PATH}/static/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -30,7 +29,7 @@
                     <button class="btn btn-danger">删除</button>
                 </div>
             </div>
-            <!--表格 -->
+            <!--显示表格 -->
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-hover">
@@ -42,7 +41,7 @@
                             <th>deptName</th>
                             <th>操作</th>
                         </tr>
-                        <c:forEach items="${pageinfo.list}" var="emp">
+                        <c:forEach items="${pageInfo.list}" var="emp">
                         <tr>
                             <th>${emp.empId}</th>
                             <th>${emp.empName}</th>
@@ -65,42 +64,43 @@
                     </table>
                 </div>
             </div>
-            <!--分页 -->
+            <!--显示分页信息 -->
             <div class="row">
-                <!-- 分页信息-->
+                <!-- 分页文字信息-->
                 <div class="col-md-6">
-                    当前第${pageinfo.pageNum}页,总共${pageinfo.pages}页，总共${pageinfo.total}条记录
+                    当前第${pageInfo.pageNum}页,总共${pageInfo.pages}页，总共${pageInfo.total}条记录
                 </div>
                 <!-- 分页条信息-->
                 <div class="col-md-6">
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
                             <li><a href="${APP_PATH}/emps?pn=1">首页</a></li>
-                            <c:if test="${pageinfo.hasPreviousPage}">
-                            <li>
-                                <a href="${APP_PATH}/emps?pn=${pageinfo.pageNum-1}" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
+                            <c:if test="${pageInfo.hasPreviousPage}">
+                                <li>
+                                    <a href="${APP_PATH}/emps?pn=${pageInfo.pageNum-1}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
                             </c:if>
-
-                                <c:forEach items="${pageinfo.navigatepageNums}" var="page_Num">
-                                <c:if test="${page_Num == pageinfo.pageNum}">
+                            <!-- 连续显示的页码-->
+                            <c:forEach items="${pageInfo.navigatepageNums}" var="page_Num">
+                                <c:if test="${page_Num == pageInfo.pageNum}">
+                                    <!-- 是当前页就高亮显示-->
                                     <li class="active"><a href="#">${page_Num}</a></li>
                                 </c:if>
-                                <c:if test="${page_Num != pageinfo.pageNum}">
-                                    <li><a href="${APP_PATH}/emps?pn=${page_Num}">${page_Num}</a></li>
+                                <c:if test="${page_Num != pageInfo.pageNum}">
+                                   <%-- <li class="active"><a href="#">${page_Num}</a></li>--%>
+                                    <%--<li><a href="${APP_PATH}/emps?pn=${page_Num}">${page_Num}</a></li>--%>
                                 </c:if>
                             </c:forEach>
-                            <c:if test="${pageinfo.hasNextPage}">
-
-                            <li>
-                                <a href="${APP_PATH}/emps?pn=${pageinfo.pageNum+1}" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
+                            <c:if test="${pageInfo.hasNextPage}">
+                                <li>
+                                    <a href="${APP_PATH}/emps?pn=${pageInfo.pageNum+1}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
                             </c:if>
-                            <li><a href="${APP_PATH}/emps?pn=${pageinfo.pages}">末页</a></li>
+                            <li><a href="${APP_PATH}/emps?pn=${pageInfo.pages}">末页</a></li>
                         </ul>
                     </nav>
                 </div>
