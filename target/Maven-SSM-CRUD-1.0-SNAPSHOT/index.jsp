@@ -223,15 +223,18 @@
                 .append($("<span></span>").addClass("glyphicon glyphicon-trash")).append(" ").append("删除");
             // 添加自定义属性
             delBtn.attr("del-id",item.empId);
-
+            // 两个按钮（编辑和删除放到一个单元格里）
             var btnTd = $("<td></td>").append(editBtn).append(" ").append(delBtn);
+            // append方法执行完成后还是返回原来的元素
             $("<tr></tr>").append(checkBoxTd)
                 .append(empIdTd)
                 .append(empNameTd)
                 .append(genderTd)
                 .append(emailTd)
-                .append(deptNameTd)
-                .append(btnTd)
+                .append(editBtn)
+                .append(delBtn)
+                // .append(deptNameTd)
+                // .append(btnTd)
                 .appendTo("#emps_table tbody");
         })
     }
