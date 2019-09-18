@@ -231,10 +231,8 @@
                 .append(empNameTd)
                 .append(genderTd)
                 .append(emailTd)
-                .append(editBtn)
-                .append(delBtn)
-                // .append(deptNameTd)
-                // .append(btnTd)
+                .append(deptNameTd)
+                .append(btnTd)
                 .appendTo("#emps_table tbody");
         })
     }
