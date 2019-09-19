@@ -247,7 +247,7 @@
         totalRecord = result.extend.pageinfo.total;
         cuurentPage = result.extend.pageinfo.pageNum;
     }
-    // 解析显示分页条信息
+    // 解析显示分页条信息，点击分页要能去到下一页.....
     function build_page_nav(result) {
         // 清空数据
         $("#page_nav_area").empty();
