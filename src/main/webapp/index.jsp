@@ -253,7 +253,7 @@
         $("#page_nav_area").empty();
         var ul = $("<ul></ul>").addClass("pagination")
 
-        // 构建
+        // 构建元素
         var firstpageLi = $("<li></li>").append($("<a></a>").append("首页").attr("href","#"));
         var prepageLi = $("<li></li>").append($("<a></a>").append($("<span ></span>").append("&laquo;")));
         if(result.extend.pageinfo.hasPreviousPage == false){
@@ -270,7 +270,7 @@
 
         }
 
-        // 构建
+        // 构建元素
         var nextpageLi = $("<li></li>").append($("<a></a>").append($("<span ></span>").append("&raquo;")));
         var lastpageLi = $("<li></li>").append($("<a></a>").append("末页").attr("href","#"));
         if(result.extend.pageinfo.hasNextPage == false){
