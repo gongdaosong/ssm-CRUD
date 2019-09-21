@@ -247,20 +247,20 @@
         totalRecord = result.extend.pageinfo.total;
         cuurentPage = result.extend.pageinfo.pageNum;
     }
-    // 解析显示分页条信息
+    // 解析显示分页条信息，点击分页要能去到下一页.....
     function build_page_nav(result) {
         // 清空数据
         $("#page_nav_area").empty();
         var ul = $("<ul></ul>").addClass("pagination")
 
-        // 构建
+        // 构建元素
         var firstpageLi = $("<li></li>").append($("<a></a>").append("首页").attr("href","#"));
         var prepageLi = $("<li></li>").append($("<a></a>").append($("<span ></span>").append("&laquo;")));
         if(result.extend.pageinfo.hasPreviousPage == false){
             firstpageLi.addClass("disabled");
             prepageLi.addClass("disabled");
-        } else {
-            // 为元素添加点击事件
+        } else { // 没被禁用才绑事件
+            // 为元素添加翻页点击事件
             firstpageLi.click(function () {
                 to_page(1);
             });
@@ -270,13 +270,13 @@
 
         }
 
-        // 构建
+        // 构建元素
         var nextpageLi = $("<li></li>").append($("<a></a>").append($("<span ></span>").append("&raquo;")));
         var lastpageLi = $("<li></li>").append($("<a></a>").append("末页").attr("href","#"));
         if(result.extend.pageinfo.hasNextPage == false){
             nextpageLi.addClass("disabled");
             lastpageLi.addClass("disabled");
-        } else{
+        } else{  // 没被禁用才绑事件
             // 为元素添加点击事件
             nextpageLi.click(function () {
                 to_page(result.extend.pageinfo.pageNum+1);
