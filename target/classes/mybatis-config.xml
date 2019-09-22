@@ -15,7 +15,7 @@
     <!-- 分页插件-->
 <plugins>
     <plugin interceptor="com.github.pagehelper.PageInterceptor">
-        <!-- 调整分页参数合理化，使其不可能到达负值或者超过最大值-->
+        <!-- 调整分页合理化-->
         <property name="reasonable" value="true"></property>
     </plugin>
 </plugins>

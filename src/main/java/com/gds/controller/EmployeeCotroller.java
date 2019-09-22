@@ -64,6 +64,27 @@ public class EmployeeCotroller {
 
     /**
      * 更新员工
+     * 如果直接发送ajax=PUT请求封装的数据一个都进不来
+     * 【empId=1015，empName=null，gender=null，email=null，dId=null】
+     *
+     * 问题：
+     * 请求体中有数据
+     * 但是employe对象封装不上
+     * update tbl_emp where emp_id = 1015
+     *
+     * 原因：
+     * Tomcat：
+     *      1，将请求体中的数据，封装到map中，
+     *      2，request.getParameter("empName")就会从map中取值，
+     *      3，springMVC封装POJO对象的时候，会把POJO中每个属性的值，request.getParameter("empName")拿到
+     *  AJAX发送put请求引起的血案：
+     *      put请求，请求体中的数据request.getParameter("empName")拿不到，
+     *      Tomcat看是put请求就不会封装请求数据为map，只有post形式的请求才封装请求体为map
+     *    解决方案
+     *  我们要支持直接发送put请求还要封装请求体中的数据，
+     *      1，配置HttpPutFormContentFilter
+     *      2，他的作用是将请求体中的数据解析包装成一个map，request被重新包装，
+     *      3，request.getParameter()被重写，就会从自己封装的map中取数据
      * @param employee
      * @return
      */

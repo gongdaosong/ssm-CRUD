@@ -189,7 +189,6 @@
             data:"pn="+pn,
             type:"GET",
             success:function (result) {
-                //console.log(result);
                 //1,解析并显示员工数据
                 build_emps_table(result);
                 //2，解析并显示分页数据
@@ -206,7 +205,6 @@
 
         var emps = result.extend.pageinfo.list;
         $.each(emps, function (index, item) {
-            // alert(item.empName);
             var checkBoxTd = $("<td><input type='checkbox' class='check_item'/></td>");
             var empIdTd = $("<td></td>").append(item.empId);
             var empNameTd = $("<td></td>").append(item.empName);
@@ -312,7 +310,6 @@
         $(ele)[0].reset();
         $(ele).find("*").removeClass("has-error has-success");
         $(ele).find(".help-block").text("");
-     //   $(ele).find("#dept_add_select").text("");
     }
 
     // 点击新增按钮，弹出模态框
@@ -335,8 +332,6 @@
            url:"${APP_PATH}/depts",
             type:"GET",
             success:function (result) {
-              //  console.log(result);
-              //  $("#dept_add_select").modal
                 $.each(result.extend.depts, function () {
                     var optionEle = $("<option></option>").append(this.deptName).attr("value",this.deptId);
                     optionEle.appendTo(ele);
@@ -430,16 +425,13 @@
                 $("#empAndmodal").modal("hide");
                 // 来到最后一页，显示保存数据
                 to_page(totalRecord);
-               // alert(result.msg);
 
                 } else{
-                  //  console.log(result);
-                    // 有哪个字段的粗偶信息就显示哪个字段
-                  //  alert(result.extend.errorFields.email);
-                  //  alert(result.extend.errorFields.empName);
                     if(undefined != result.extend.errorFields.email){
+                        // 显示员工邮箱错误信息
                         show_validata_msg("#email_add_input","error",result.extend.errorFields.email);
                     }
+                        // 显示员工名字错误信息
                     if(undefined != result.extend.errorFields.empName){
                         show_validata_msg("#empName_add_input","error",result.extend.errorFields.empName);
                     }
@@ -454,7 +446,6 @@
             url:"${APP_PATH}/emp/"+id,
             type:"GET",
             success:function (result) {
-              //  console.log(result);
                 var empData = result.extend.emp;
                 $("#empName_update_static").text(empData.empName);
                 $("#email_update_input").val(empData.email);
@@ -467,7 +458,7 @@
     // 点击更新按钮，更新员工
     $("#emp_update_btn").click(function () {
 
-        // 验证邮箱，校验邮箱是否合法
+        // 1， 验证邮箱，校验邮箱是否合法
         var email = $("#email_update_input").val();
         var reqemail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
         if(!reqemail.test(email)){
@@ -476,13 +467,12 @@
         } else{
             show_validata_msg("#email_update_input","success"," ");
         }
-        // 发送ajax请求更新保存员工数据
+        //  2，发送ajax请求更新保存员工数据
         $.ajax({
             url:"${APP_PATH}/emp/"+$(this).attr("edit-id"),
             type:"PUT",
             data:$("#empupdatemodal form").serialize(),
             success:function (result) {
-              //  alert(result.msg);
               //关闭模态框
                 $("#empupdatemodal").modal("hide");
               //跳转到修改页面并保存数据
@@ -510,7 +500,6 @@
         //弹出确认删除对话框
         var empName = $(this).parents("tr").find("td:eq(2)").text();
         var empId = $(this).attr("del-id");
-    //    alert($(this).parents("tr").find("td:eq(2)").text());
         if(confirm("确认删除【"+empName+"】吗?")){
             // 确认，发送ajax请求删除即可
             $.ajax({
@@ -528,13 +517,11 @@
 
     // 完成全选/全不选功能
     $("#check_all").click(function () {
-    //   alert($(this).prop("checked"));
        $(".check_item").prop("checked",$(this).prop("checked"));
     });
     // 为check_item复选框添加绑定事件
     $(document).on("click",".check_item",function () {
         //判断当前选中的元素是否5个
-       // alert($(".check_item:checked").length);
         var flag = $(".check_item:checked").length == $(".check_item").length;
         $("#check_all").prop("checked",flag);
     });
