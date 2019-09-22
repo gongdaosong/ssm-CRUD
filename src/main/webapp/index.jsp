@@ -473,9 +473,9 @@
             type:"PUT",
             data:$("#empupdatemodal form").serialize(),
             success:function (result) {
-              //关闭模态框
+              //1，关闭模态框
                 $("#empupdatemodal").modal("hide");
-              //跳转到修改页面并保存数据
+              // 2，跳转到修改页面并保存数据
                 to_page(cuurentPage);
             }
         });
@@ -517,6 +517,9 @@
 
     // 完成全选/全不选功能
     $("#check_all").click(function () {
+        // attr获取值checked是undefined；
+        // dom原生属性；attr获取自定义属性的值
+        // prop修改和读取dom原生属性值
        $(".check_item").prop("checked",$(this).prop("checked"));
     });
     // 为check_item复选框添加绑定事件
@@ -525,7 +528,7 @@
         var flag = $(".check_item:checked").length == $(".check_item").length;
         $("#check_all").prop("checked",flag);
     });
-    // 为全部删除按钮绑定点击事件(批量删除)
+    // 1,为全部删除按钮绑定点击事件(批量删除)
     $("#emp_delete_all_btn").click(function () {
         var empNames = "";
         var del_idstr = "";
