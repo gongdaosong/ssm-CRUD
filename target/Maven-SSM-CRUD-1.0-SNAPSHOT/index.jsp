@@ -528,6 +528,7 @@
         var flag = $(".check_item:checked").length == $(".check_item").length;
         $("#check_all").prop("checked",flag);
     });
+
     // 1,为全部删除按钮绑定点击事件(批量删除)
     $("#emp_delete_all_btn").click(function () {
         var empNames = "";
@@ -535,9 +536,12 @@
         //
         $.each($(".check_item:checked"),function () {
         empNames +=$(this).parents("tr").find("td:eq(2)").text()+",";
+        // 组装员工id字符串
         del_idstr +=$(this).parents("tr").find("td:eq(1)").text()+"-";
         });
+        // 去除empNames多余的，
         empNames = empNames.substring(0,empNames.length-1);
+        // 去除id多余的-
         del_idstr = del_idstr.substring(0,del_idstr.length-1);
         if(confirm("确认删除【"+empNames+"】吗？")){
             // 确认删除，发送ajax请求删除即可
