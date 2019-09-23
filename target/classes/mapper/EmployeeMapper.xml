@@ -84,6 +84,7 @@
   <sql id="WithDept_Column_List">
     e.emp_id, e.emp_name, e.gender, e.email, e.d_id, d.dept_id, d.dept_name
   </sql>
+  <!--查询员工 不 带部门信息的 -->
   <select id="selectByExample" parameterType="com.gds.bean.EmployeeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -223,6 +224,7 @@
       d_id = #{dId,jdbcType=INTEGER}
     where emp_id = #{empId,jdbcType=INTEGER}
   </update>
+  <!--查询员工同时带部门信息的 -->
   <select id="selectByExampleWithDept" resultMap="WithDeptResultMap">
     select
     <if test="distinct">
