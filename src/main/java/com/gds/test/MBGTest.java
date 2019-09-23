@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 通过mbg.xml生成代码
  * @Author 龚道松
  * @Date 2019/6/30 9:48
  * @Wersion 1.0

@@ -163,7 +163,7 @@ public class EmployeeCotroller {
         //引入分页插件pagehelper，传入页码，以及每页显示数据
         PageHelper.startPage(pn,5);
         List<Employee> emps = employeeService.getAll();
-        // f分装了分页信息，包括查询的数据，传入连续显示的页数
+        // 封装了分页信息，包括查询的数据，传入连续显示的页数
         PageInfo page = new PageInfo(emps,5);
         return Msg.success().add("pageinfo",page);
     }

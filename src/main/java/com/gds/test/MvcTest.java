@@ -20,10 +20,11 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.List;
 
 /**
+ *  使用Spring提供的测试请求功能，测试CRUD请求的正确性
  * @Author 龚道松
  * @Date 2019/7/1 21:23
  * @Wersion 1.0
- *      使用Spring提供的测试请求功能，测试CRUD请求的正确性
+ *
  **/
 
 @RunWith(SpringJUnit4ClassRunner.class)
